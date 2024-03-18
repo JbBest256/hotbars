@@ -1,0 +1,209 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'profile'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">{{cart_count}}</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<!--
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							-->
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">320</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block profilecontent%}
+
+{% endblock%}
+
+{% block content%}
+		<div class="container  p-2">
+    <div class="row">
+  <div class="col-sm-3">
+    <div class="rating-block">
+        <h4>Average Customer rating</h4>
+        <h1 class="fw-bold pb-3">{{ average_rating }} <small>/ 5</small></h1>
+        <div class="star-rating">
+            {% for i in "12345" %}
+                {% if forloop.counter0 < star_average|floatformat:0|add:0 %}
+                    <span class="fa fa-star text-warning"></span>
+                {% else %}
+                    <span class="fa fa-star text-white"></span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+       
+    </div>
+    <div class="row">
+	{% for review in reviews %}
+        <div class="col-sm-7">
+            <hr class="my-4">
+			
+            <div>
+			
+                <h4 class="header">Review by {{review.author.user_p.user_name}}</h4>
+                <div class="body">
+                    <div class="review-block-rate">
+						{% for i in "12345" %}
+							<span class="fa fa-star {% if i|add:'0' <= review.rating %}text-warning{% else %}text-white{% endif %}"></span>
+						{% endfor %}
+					</div>
+
+                   
+                    <div class="review-block-description">{{review.content}}</div>
+                    <div class="review-reply">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#reply1Collapse" aria-expanded="false" aria-controls="reply1Collapse">
+                            Reply
+                        </button>
+                        <div class="collapse mt-3" id="reply1Collapse">
+                            <textarea class="form-control" placeholder="Write your reply here..."></textarea>
+                            <button class="btn btn-primary mt-2" type="button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+				
+            </div>
+			{% if review.reply %}
+            <!-- Add more reviews similarly -->
+            <div class="mt-0" style="margin-left: 50px;">
+                <h6 class="header">Reply to {{review.author.user_p.user_name}}'s Review</h6>
+                <div class="body">
+                    <div class="review-block-description">{{ review.reply.content }}</div>
+                </div>
+            </div>
+			{%endif%}
+			
+        </div>
+		{% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButtons = document.querySelectorAll(".toggle-reply");
+
+        toggleButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const replySection = this.nextElementSibling;
+                if (replySection.style.display === "none" || replySection.style.display === "") {
+                    replySection.style.display = "block";
+                } else {
+                    replySection.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}
+
+
+

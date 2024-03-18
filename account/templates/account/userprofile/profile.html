@@ -1,0 +1,635 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+	<!-- Inner container -->
+					<div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
+
+						<!-- Left content -->
+						<div class="tab-content flex-fill ">
+							<div class="tab-pane fade active show" id="activity">
+
+								
+
+								<!-- Blog posts -->
+								<div class="row">
+								<div class="col-lg-4">
+									<!-- Sales stats -->
+								<div class="card">
+									<div class="sidebar-section-body text-center pt-0">
+						<div class="card-img-actions d-inline-block mb-3 mt-1">
+							<img class="img-fluid rounded" {% if userprofile.profile_image%}src="{{userprofile.profile_image.url}}"{%endif%}  width="300" height="300" alt="">
+							
+						</div>
+
+			    		<h6 class="mb-0">{{userprofile.user_p.user_name}}</h6>
+			    		<span class="text-muted">UX/UI designer</span>
+
+						<div class="d-flex justify-content-center mt-3 mb-3">
+						<a href="#" class="link-pink" data-bs-popup="tooltip" title="Website">
+								<i class="ph-dribbble-logo"></i>
+							</a>
+							<a href="#" class="link-info mx-3" data-bs-popup="tooltip" title="Facebook">
+								<i class="ph-facebook-logo"></i>
+							</a>
+							<a href="#" class="link-indigo  mx-2" data-bs-popup="tooltip" title="Tiktok">
+								<i class="ph-tiktok-logo"></i>
+							</a>
+							<a href="#" class="link-pink  mx-2" data-bs-popup="tooltip" title="Linkedin">
+								<i class="ph-linkedin-logo"></i>
+							</a>
+							<a href="#" class="link-info  mx-3" data-bs-popup="tooltip" title="Twitter">
+								<i class="ph-twitter-logo"></i>
+							</a>
+							<a href="#" class="link-indigo" data-bs-popup="tooltip" title="Teams">
+								<i class="ph-microsoft-teams-logo"></i>
+							</a>
+						</div>
+					</div>
+								</div>
+								<!-- /sales stats -->
+
+									
+									</div>
+
+									<div class="col-lg-8">
+										<div class="card">
+											<div class="card-header d-sm-flex">
+												<h6 class="mb-0">My Bio</h6>
+												<div class="d-flex d-sm-block mt-1 mt-sm-0 ms-sm-auto">
+													<span class="text-muted">49 minutes ago</span>
+													<div class="d-inline-flex ms-auto ms-sm-3">
+														<div class="dropdown">
+															<a href="#" class="text-body" data-bs-toggle="dropdown">
+																<i class="ph-gear"></i>
+															</a>
+
+															<div class="dropdown-menu dropdown-menu-end">
+																<a href="#" class="dropdown-item">
+																	<i class="ph-lock-key me-2"></i>
+																	Hide user posts
+																</a>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-prohibit-inset me-2"></i>
+																	Block user
+																</a>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-user-circle-minus me-2"></i>
+																	Unfollow user
+																</a>
+																<div class="dropdown-divider"></div>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-brackets-curly me-2"></i>
+																	Embed post
+																</a>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-warning-circle me-2"></i>
+																	Report this post
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="card-body">
+												<div class="card-img-actions mb-3">
+													<img class="card-img img-fluid" src="../../../assets/images/demo/cover3.jpg" alt="">
+													<div class="card-img-actions-overlay card-img">
+														<a href="blog_single.html" class="btn btn-outline-white btn-icon rounded-pill">
+															<i class="ph-link"></i>
+														</a>
+													</div>
+												</div>
+
+												<h6 class="mb-3">
+													<i class="ph-chats me-2"></i>
+													<a href="#">Jason Ansley</a> commented:
+												</h6>
+
+												<blockquote class="blockquote border-start border-width-5 py-2 ps-3 mb-0">
+													<p class="mb-2 fs-base">When suspiciously goodness labrador understood rethought yawned grew piously endearingly inarticulate oh goodness jeez trout distinct hence cobra despite taped laughed the much audacious less inside tiger groaned darn stuffily metaphoric unihibitedly inside cobra.</p>
+													<footer class="blockquote-footer">Jason, <cite title="Source Title">10:39 am</cite></footer>
+												</blockquote>
+											</div>
+
+											<div class="card-body d-flex justify-content-between align-items-center pt-0">
+												<ul class="list-inline mb-0">
+													<li class="list-inline-item"><a href="#" class="text-body"><i class="ph-eye me-2"></i> 438</a></li>
+													<li class="list-inline-item"><a href="#" class="text-body"><i class="ph-chats me-2"></i> 71</a></li>
+												</ul>
+
+												<a href="#" class="d-inline-block">Read post</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										<div class="card">
+											<div class="card-header d-sm-flex">
+												<h5 class="mb-0">About Me</h5>
+												<div class="d-flex d-sm-block mt-1 mt-sm-0 ms-sm-auto">
+													<span class="text-muted">2 hours ago</span>
+													<div class="d-inline-flex ms-auto ms-sm-3">
+														<div class="dropdown">
+															<a href="#" class="text-body" data-bs-toggle="dropdown">
+																<i class="ph-gear"></i>
+															</a>
+
+															<div class="dropdown-menu dropdown-menu-end">
+																<a href="#" class="dropdown-item">
+																	<i class="ph-lock-key me-2"></i>
+																	Hide user posts
+																</a>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-prohibit-inset me-2"></i>
+																	Block user
+																</a>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-user-circle-minus me-2"></i>
+																	Unfollow user
+																</a>
+																<div class="dropdown-divider"></div>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-brackets-curly me-2"></i>
+																	Embed post
+																</a>
+																<a href="#" class="dropdown-item">
+																	<i class="ph-warning-circle me-2"></i>
+																	Report this post
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="card-body">
+												<div class="card-img-actions mb-3">
+													<img class="card-img img-fluid" src="../../../assets/images/demo/cover.jpg" alt="">
+													<div class="card-img-actions-overlay card-img">
+														<a href="blog_single.html" class="btn btn-outline-white btn-icon rounded-pill">
+															<i class="ph-link"></i>
+														</a>
+													</div>
+												</div>
+
+												<h6 class="mb-3">
+													<i class="ph-chats me-2"></i>
+													<a href="#">Tim Smith</a> commented:
+												</h6>
+
+												<blockquote class="blockquote border-start border-width-5 py-2 ps-3 mb-0">
+													<p class="mb-2 fs-base">The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>
+													<footer class="blockquote-footer">Mark, <cite title="Source Title">12:58 pm</cite></footer>
+												</blockquote>
+											</div>
+
+											<div class="card-body d-flex justify-content-between align-items-center pt-0">
+												<ul class="list-inline mb-0">
+													<li class="list-inline-item"><a href="#" class="text-body"><i class="ph-eye me-2"></i> 589</a></li>
+													<li class="list-inline-item"><a href="#" class="text-body"><i class="ph-chats me-2"></i> 54</a></li>
+												</ul>
+
+												<a href="#" class="d-inline-block">Read post</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /blog posts -->
+
+
+								
+
+						    </div>
+
+						    <div class="tab-pane fade" id="schedule">
+
+								
+									<!-- Expanded state -->
+									<div class="card">
+										<div class="card-header d-flex justify-content-between">
+											<h5 class="mb-0">Timetable</h5> 
+											<div>
+												<button type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start btn-sm">
+													<span class="btn-labeled-icon bg-primary text-white">
+														<i class="ph-map-pin ph-sm"></i>
+													</span>
+													Add Event
+												</button>
+											</div>
+										</div>
+
+										<div class="card-body">
+											<p class="mb-3">You can set one of the accordion items to be expanded by default. To render an accordion that’s expanded, add the <code>.open</code> class on the <code>.accordion</code>. For a consistent visual appearance and correct class name switching, you also need to remove <code>.collapsed</code> class from the active <code>.accordion-button</code> element. Note that only 1 accordion item can be expanded.</p>
+
+											<div class="fw-bold border-bottom pb-2 mb-3">Example</div>
+
+											<div class="accordion" id="accordion_expanded">
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#expanded_item1">
+															Monday
+														</button>
+													</h2>
+													<div id="expanded_item1" class="accordion-collapse collapse show" data-bs-parent="#accordion_expanded">
+														<div class="accordion-body">
+															<span class="fw-semibold">This is the first item's accordion body.</span> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+														</div>
+													</div>
+												</div>
+
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#expanded_item2">
+															Tuesday
+														</button>
+													</h2>
+													<div id="expanded_item2" class="accordion-collapse collapse" data-bs-parent="#accordion_expanded">
+														<div class="accordion-body">
+															<span class="fw-semibold">This is the second item's accordion body.</span> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+														</div>
+													</div>
+												</div>
+
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#expanded_item3">
+															Wednesday
+														</button>
+													</h2>
+													<div id="expanded_item3" class="accordion-collapse collapse" data-bs-parent="#accordion_expanded">
+														<div class="accordion-body">
+															<span class="fw-semibold">This is the third item's accordion body.</span> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /expanded state -->
+
+
+
+
+									<!-- Expanded state -->
+									<div class="card">
+										<div class="card-header d-flex justify-content-between">
+											<h5 class="mb-0">Calendar</h5> 
+											<div>
+												<button type="button" class="btn btn-flat-primary btn-labeled btn-labeled-start btn-sm">
+													<span class="btn-labeled-icon bg-primary text-white">
+														<i class="ph-map-pin ph-sm"></i>
+													</span>
+													Add Event
+												</button>
+											</div>
+										</div>
+
+										<div class="card-body">
+											<p class="mb-3">You can set one of the accordion items to be expanded by default. To render an accordion that’s expanded, add the <code>.open</code> class on the <code>.accordion</code>. For a consistent visual appearance and correct class name switching, you also need to remove <code>.collapsed</code> class from the active <code>.accordion-button</code> element. Note that only 1 accordion item can be expanded.</p>
+
+											<div class="fw-bold border-bottom pb-2 mb-3">Example</div>
+
+											<div class="accordion" id="accordion_expanded">
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#expanded_item1">
+															January
+														</button>
+													</h2>
+													<div id="expanded_item1" class="accordion-collapse collapse show" data-bs-parent="#accordion_expanded">
+														<div class="accordion-body">
+															<span class="fw-semibold">This is the first item's accordion body.</span> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+														</div>
+													</div>
+												</div>
+
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#expanded_item2">
+															Febraury
+														</button>
+													</h2>
+													<div id="expanded_item2" class="accordion-collapse collapse" data-bs-parent="#accordion_expanded">
+														<div class="accordion-body">
+															<span class="fw-semibold">This is the second item's accordion body.</span> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+														</div>
+													</div>
+												</div>
+
+												<div class="accordion-item">
+													<h2 class="accordion-header">
+														<button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#expanded_item3">
+															March
+														</button>
+													</h2>
+													<div id="expanded_item3" class="accordion-collapse collapse" data-bs-parent="#accordion_expanded">
+														<div class="accordion-body">
+															<span class="fw-semibold">This is the third item's accordion body.</span> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /expanded state -->
+								
+
+					    	</div>
+
+						    <div class="tab-pane fade" id="settings">
+
+								<!-- Profile info -->
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">Profile information</h5>
+									</div>
+
+									<div class="card-body">
+										<form action="#">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="mb-3">
+														<label class="form-label">Username</label>
+														<input type="text" value="Victoria" class="form-control">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="mb-3">
+														<label class="form-label">Full name</label>
+														<input type="text" value="Smith" class="form-control">
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="mb-3">
+														<label class="form-label">Address line 1</label>
+														<input type="text" value="Ring street 12" class="form-control">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="mb-3">
+														<label class="form-label">Address line 2</label>
+														<input type="text" value="building D, flat #67" class="form-control">
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-4">
+													<div class="mb-3">
+														<label class="form-label">City</label>
+														<input type="text" value="Munich" class="form-control">
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div class="mb-3">
+														<label class="form-label">State/Province</label>
+														<input type="text" value="Bayern" class="form-control">
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div class="mb-3">
+														<label class="form-label">ZIP code</label>
+														<input type="text" value="1031" class="form-control">
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="mb-3">
+														<label class="form-label">Email</label>
+														<input type="text" readonly="readonly" value="victoria@smith.com" class="form-control">
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="mb-3">
+							                            <label class="form-label">Your country</label>
+							                            <select class="form-select">
+							                                <option value="germany" selected>Germany</option> 
+							                                <option value="france">France</option> 
+							                                <option value="spain">Spain</option> 
+							                                <option value="netherlands">Netherlands</option> 
+							                                <option value="other">...</option> 
+							                                <option value="uk">United Kingdom</option> 
+							                            </select>
+							                        </div>
+												</div>
+											</div>
+
+				                        	<div class="row">
+				                        		<div class="col-lg-6">
+				                        			<div class="mb-3">
+														<label class="form-label">Phone #</label>
+														<input type="text" value="+99-99-9999-9999" class="form-control">
+														<div class="form-text text-muted">+99-99-9999-9999</div>
+													</div>
+				                        		</div>
+
+												<div class="col-lg-6">
+													<div class="mb-3">
+														<label class="form-label">Upload profile image</label>
+														<input type="file" class="form-control">
+				                                    	<div class="form-text text-muted">Accepted formats: gif, png, jpg. Max file size 2Mb</div>
+				                                	</div>
+												</div>
+				                        	</div>
+
+					                        <div class="text-end">
+					                        	<button type="submit" class="btn btn-primary">Save changes</button>
+					                        </div>
+										</form>
+									</div>
+								</div>
+								<!-- /profile info -->
+
+
+								<!-- Account settings -->
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">Account settings</h5>
+									</div>
+
+									<div class="card-body">
+										<form action=""  method = "POST" enctype ="multipart/form-data">
+										{% csrf_token %}
+						{% for hidden_field in form.hidden_fields %}
+							{{ hidden_field }}
+						{% endfor %}
+						
+						{% if form.non_field_errors %}
+								  <div class="invalid-feedback">
+									{% for error in form.non_field_errors %}
+									  {{ error }}
+									{% endfor %}
+								  </div>
+								{% endif %}
+						
+						
+											<div class="row">
+											
+																						{% for field in form.visible_fields %}
+
+	<div class="col-lg-6">
+													<div class="mb-3">
+  <div class="form-group">
+    {{ field.label_tag }}
+	
+    {% if form.is_bound %}
+	
+      {% if field.errors %}
+	  
+        {% render_field field class="form-control is-invalid" %}
+		
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+		  
+        {% endfor %}
+      {% else %}
+	  
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+	  
+    {% else %}
+	
+      {% render_field field class="form-control" %}
+	  
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+  </div>
+  </div>
+</div>
+{% endfor %}
+												
+											</div>
+
+											
+					                        <div class="text-end">
+					                        	<button type="submit" class="btn btn-primary">Save changes</button>
+					                        </div>
+				                        </form>
+									</div>
+								</div>
+								<!-- /account settings -->
+
+					    	</div>
+						</div>
+						<!-- /left content -->
+
+
+						
+
+					</div>
+					<!-- /inner container -->
+				
+
+{% endblock %}

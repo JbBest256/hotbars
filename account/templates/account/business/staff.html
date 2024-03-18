@@ -1,0 +1,216 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+						<div class="d-flex justify-content-end px-2">
+                            <a href="{% url 'newstaff'  %}"" >
+								<button type="button" class="btn btn-secondary my-1 me-2">New Staff</button>
+                            </a>        
+                        </div>
+<div class="row">
+{% for staff in staffs %}
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-body">
+								<div class="d-flex">
+									<a href="#" class="me-3">
+										<img src={% if staff.employees.profile_image%} "{{staff.employees.profile_image.url}}" {%endif%} class="rounded-circle" width="44" height="44" alt="">
+									</a>
+
+									<div class="flex-fill">
+										<h6 class="mb-1">{{staff.employees.user_p.user_name}} </h6>
+										<p class="mb-1 text-success">{{staff.title}} </p>
+										<div class="d-flex">
+											<a href="#" class="link-pink" data-bs-popup="tooltip" title="{{staff.employees.user_p.phone_number}}">
+												<i class="ph-phone"></i>
+											</a>
+											<a href="#" class="link-info mx-2" data-bs-popup="tooltip" title="Twitter">
+												<i class="ph-twitter-logo"></i>
+											</a>
+											<a href="#" class="link-indigo" data-bs-popup="tooltip" title="Github">
+												<i class="ph-microsoft-teams-logo"></i>
+											</a>
+										</div>
+									</div>
+
+									<div class="align-self-center ms-3">
+										<div class="dropdown">
+											<a href="#" class="text-body" data-bs-toggle="dropdown">
+												<i class="ph-list"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-end">
+												{% if staff.role_1 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can do everything
+												</a>
+												{% endif %}
+												{% if staff.role_2 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can add other staff
+												</a>
+												{% endif %}
+												{% if staff.role_3 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can sell over the counter
+												</a>
+												{% endif %}
+												{% if staff.role_4 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can access business settings
+												</a>
+												{% endif %}
+												{% if staff.role_5 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can deliver goods ordered
+												</a>
+												{% endif %}
+												{% if staff.role_6 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can process online orders
+												</a>
+												{% endif %}
+												{% if staff.role_7 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can add new stock
+												</a>
+												{% endif %}
+												{% if staff.role_8 == True %}
+												<a href="#" class="dropdown-item">
+													<i class="ph-person me-2"></i>
+													Can add product or service categories and items
+												</a>
+												{% endif %}
+												<div class="dropdown-divider"></div>
+												<a href="#" class="dropdown-item">
+													<i class="ph-chart-line me-2"></i>
+													Statistics
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+{% endfor %}
+						
+					</div>
+	{%endblock%}				
+					

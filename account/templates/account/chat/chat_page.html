@@ -1,0 +1,325 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+<div class="row">
+						<div class="col-lg-6">
+
+							
+
+							<!-- Chat UI -->
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">{{room}}</h5>
+								</div>
+
+								<div class="card-body">
+									<div class="media-chat-scrollable mb-3">
+										<div id="chatMessages" class="media-chat vstack gap-3">
+										{%for message in messages%}
+											
+
+											<div class="media-chat-item {% if message.sender.user_p == request.user %}media-chat-item-reverse{% endif %}">
+												<div class="media-chat-message">
+													<div class="fs-sm lh-sm">
+														<span class="fw-semibold">{{message.sender.user_p.user_name}}</span>
+														<span class="opacity-50 ms-2"><span class="opacity-50 ms-2">{{message.timestamp}}</span></span>
+													</div>
+													{{message.content}}
+												</div>
+											</div>
+
+										{% endfor %}	
+										</div>
+									</div>
+
+			                    	<input id="messageInput" class="form-control  form-control-content mb-3" contenteditable data-placeholder="Type message here and hit enter...">
+
+			                    	<div class="d-flex align-items-center">
+			                    		<div>
+			                                <a href="#" class="btn btn-light btn-icon border-transparent rounded-pill btn-sm me-1" data-bs-popup="tooltip" title="Formatting">
+			                                	<i class="ph-text-aa"></i>
+			                                </a>
+			                            	<a href="#" class="btn btn-light btn-icon border-transparent rounded-pill btn-sm me-1" data-bs-popup="tooltip" title="Emoji">
+			                            		<i class="ph-smiley"></i>
+			                            	</a>
+			                                <a href="#" class="btn btn-light btn-icon border-transparent rounded-pill btn-sm me-1" data-bs-popup="tooltip" title="Send file">
+			                                	<i class="ph-paperclip"></i>
+			                                </a>
+			                            </div>
+
+			                    		<button type="button" onclick="sendMessage()" class="btn btn-primary ms-auto">
+			                    			Send
+											<i class="ph-paper-plane-tilt ms-2"></i>
+			                    		</button>
+			                    	</div>
+								</div>
+							</div>
+							<!-- /Chat Ui -->
+
+						</div>
+
+						<div class="col-lg-6">
+
+							<!-- List with text -->
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">Start a Chat</h5>
+								</div>
+
+								<div class="list-group list-group-borderless py-2">
+									<div class="list-group-item fw-semibold">Administration</div>
+							{%for location in last_messages%}
+							
+								{% if location.order_no_c.code_address.location_type == 'Admin' %}
+									<a href="{% url 'chat' location.order_no_c.code_address.name %}" class="list-group-item list-group-item-action hstack gap-3">
+										<div class="status-indicator-container">
+											<img src="../../../assets/images/demo/users/face1.jpg" class="w-40px h-40px rounded-pill" alt="">
+											<span class="status-indicator bg-success"></span>
+										</div>
+
+										<div class="flex-fill">
+											<div class="fw-semibold">{{location.order_no_c.code_address.name}} </div>
+											<span class="text-muted">{{location.content}}</span>
+										</div>
+									{% if location.unseen_count < 0 %}
+										<div class="align-self-center ms-3">
+											
+											<span class="badge bg-success rounded-pill ms-auto">{{ location.unseen_count }}</span>
+											
+										</div>
+									{% endif %}	
+									</a>
+									
+									
+									
+									{% endif%}
+							{%endfor%}
+									
+									
+							{%for location in last_messages%}
+							
+								{% if location.order_no_c.code_address.location_type == 'Other' %}
+									<a href="{% url 'chat' location.order_no_c.code_address.name %}" class="list-group-item list-group-item-action hstack gap-3">
+										<div class="status-indicator-container">
+											<img src="../../../assets/images/demo/users/face1.jpg" class="w-40px h-40px rounded-pill" alt="">
+											<span class="status-indicator bg-success"></span>
+										</div>
+
+										<div class="flex-fill">
+											<div class="fw-semibold">{{location.order_no_c.code_address.name}} </div>
+											<span class="text-muted">{{location.content}}</span>
+										</div>
+									{% if location.unseen_count < 0 %}
+										<div class="align-self-center ms-3">
+											
+											<span class="badge bg-success rounded-pill ms-auto">{{ location.unseen_count }}</span>
+											
+										</div>
+									{% endif %}	
+									</a>
+									
+									
+									
+									{% endif%}
+							{%endfor%}
+									
+									
+								
+								</div>
+							</div>
+							<!-- /list with text -->
+
+
+
+							
+
+						</div>
+					</div>
+ <div id="chat">
+        
+        
+        
+    </div>
+    <script>
+        const userId = 3;
+		
+		// Retrieve the user ID from the Django template
+const socket = new WebSocket('ws://localhost:8000/ws/echo/?user_Id=' + 3);
+
+socket.onopen = function(event) {
+    console.log('WebSocket connection established');
+};
+socket.onerror = function(event) {
+    console.error('WebSocketjjj',event);
+};
+
+socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    console.log('Received message:', data); // Log the received message data
+    displayMessage(data);
+};
+
+function sendMessage() {
+	
+    const messageInput = document.getElementById('messageInput');
+    const message = messageInput.value.trim();
+    const username = "{{request.user.user_name}}"; // Retrieve the username from the Django template
+	const user = "{{request.user.pk}}"; // Retrieve the username from the Django template
+	if (message !== '') {
+        console.log('Sending message:', message); // Log the message being sent
+        // ... (existing code)
+    }
+    if (message !== '') {
+        const data = {
+            message: message,
+            username: username,
+			user: user
+        };
+        socket.send(JSON.stringify(data));
+		console.log('Sent message:', message); // Log the message being sent
+        messageInput.value = '';
+    }
+}
+socket.onerror = function(error) {
+    console.error('WebSocket error:', error);
+};
+
+function displayMessage(message) {
+	
+    const chatMessages = document.getElementById('chatMessages');
+    const messageElement = document.createElement('div');
+	if(message.username == "{{request.user.user_name}}"){
+    messageElement.classList.add('media-chat-item', 'media-chat-item-reverse');
+	}else{
+	messageElement.classList.add('media-chat-item', 'media-chat-item');
+	}
+    messageElement.innerHTML = `
+        <div class="media-chat-message">
+            <div class="fs-sm lh-sm">
+                <span class="fw-semibold">${message.username}</span>
+                <span class="opacity-50 ms-2">${message.timestamp}</span>
+            </div>
+            ${message.message}
+        </div>
+    `;
+	
+	
+	
+    chatMessages.appendChild(messageElement);
+}
+
+    </script>	
+{% endblock%}

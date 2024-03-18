@@ -1,0 +1,280 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'profile'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">{{cart_count}}</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<!--
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							-->
+							<li class="nav-item me-1">
+								<a href="{% url 'reviews'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">320</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block profilecontent%}
+
+{% endblock%}
+
+{% block content%}
+		<!-- Grid -->
+		
+					<div class="row">
+					{%if products%}
+					{%for product in products%}
+						<div class="col-xl-2 col-sm-2 col-6">
+							<div class="card mt-2">
+								<div class="card-body m-0 p-1">
+									<div class="card-img-actions">
+										
+											<img src="{{product.item.cover_image.url}}" class="card-img" width="90" alt="">
+										
+									</div>
+								</div>
+
+								<div class="card-body text-center m-0 p-0">
+									<div class="mb-0">
+										<h6 class="mb-0">
+											<a href="#" class="text-body">{{product.item.product_name}}</a>
+										</h6>
+
+										<a href="#" class="text-muted">{{product.item.brand}}</a>
+									</div>
+
+									<h6 class="m-0">Ugx: {{product.item.new_price}}</h6>
+
+									<div>
+										<i class="ph-star fs-base lh-base align-top text-warning"></i>
+										<i class="ph-star fs-base lh-base align-top text-warning"></i>
+										<i class="ph-star fs-base lh-base align-top text-warning"></i>
+										<i class="ph-star fs-base lh-base align-top text-warning"></i>
+										<i class="ph-star fs-base lh-base align-top text-warning"></i>
+									</div>
+
+									<div class="text-muted mb-3">85 reviews</div>
+{%if incart%}
+
+	{% for cart in incart%}
+
+		{% if cart.order_product.id == product.item.id%}
+					<button  type="button" class=" btn btn-success mb-1">
+										<i class="ph-shopping-cart me-2"></i>
+										In Cart
+									</button>
+							<style>
+						#addtocart-btn{{product.item.id}}{
+						display:none;
+						}
+						</style>
+		{%endif%}
+
+	{% endfor %}
+
+{% endif %}
+									<button id="addtocart-btn{{product.item.pk}}" onclick="AddtoCart({{product.item.pk}})" type="button" class="btn btn-primary p-1 mb-1">
+										<i class="ph-shopping-cart me-2"></i>
+										Place Order
+									</button>
+									<button id="incart{{product.item.pk}}"  type="button" class="d-none btn btn-success mb-1">
+										<i class="ph-shopping-cart me-2"></i>
+										In Cart
+									</button>
+								</div>
+							</div>
+						</div>
+					{%endfor%}
+					{%else%}
+					<div class="card card border-start border-start-width-2 border-start-indigo border-end border-end-width-2 border-end-indigo rounded-0">
+								<div class="card-header text-center ">
+									<h6 class="mb-0 text-warning">No Products Found</h6>
+									
+								</div>
+
+								<div class="collapse show">
+									<div class="card-body">
+										Please add products to be displayed at the bar counter
+									</div>
+								</div>
+							</div>
+					{%endif%}
+						
+					
+					</div>
+
+					
+					<!-- /grid -->
+
+
+					<!-- Pagination -->
+					<div class="d-flex justify-content-center pt-1 mb-1">
+						<ul class="pagination pagination-flat">
+							<li class="page-item"><a href="#" class="page-link rounded-pill"><i class="ph-arrow-left"></i></a></li>
+							<li class="page-item active"><a href="#" class="page-link rounded-pill">1</a></li>
+							<li class="page-item"><a href="#" class="page-link rounded-pill">2</a></li>
+							<li class="page-item align-self-center"><span class="mx-2">...</span></li>
+							<li class="page-item"><a href="#" class="page-link rounded-pill">58</a></li>
+							<li class="page-item"><a href="#" class="page-link rounded-pill">59</a></li>
+							<li class="page-item"><a href="#" class="page-link rounded-pill"><i class="ph-arrow-right"></i></a></li>
+						</ul>
+					</div>
+					<!-- /pagination -->
+					
+					
+					
+					
+					
+					
+					
+					
+<script>
+
+
+function AddtoCart(id){
+	let addtocart_btnid = "addtocart-btn".concat(id)
+	let addtocart_btn = document.getElementById(addtocart_btnid);
+	let cart_count = document.getElementById("cart-count")
+	message = id
+	fetch("{% url 'addtocart' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(message)
+		}
+	).then(e =>e.json()).then(messages =>{
+		for(message of messages){
+			if(message.message=='success'){
+				count = parseInt(cart_count.innerHTML)
+				count +=1
+				cart_count.innerHTML =count
+				
+				let added = "incart".concat(id)
+				counter_cart = document.getElementById("counter_cart");
+				if (counter_cart.classList.contains("d-none")) {
+				counter_cart.classList.remove('d-none');
+				}
+				
+				let added_btn = document.getElementById(added);
+				added_btn.classList.remove('d-none');
+				
+				addtocart_btn.classList.add('d-none');
+				
+			}
+		}
+	});
+}
+
+
+
+
+</script>					
+{% endblock %}
+
+
+

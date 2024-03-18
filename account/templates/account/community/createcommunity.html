@@ -1,0 +1,81 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block content%}
+	<!-- Inner container -->
+					<!-- Autocomplete -->
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">Create Community</h5>
+						</div>
+
+						<div class="card-body">
+							<form class="" method = "POST" enctype ="multipart/form-data" action="" novalidate>
+					{% csrf_token %}
+						{% for hidden_field in form.hidden_fields %}
+							{{ hidden_field }}
+						{% endfor %}
+							<div class="row">
+								
+
+								
+									{% if form.non_field_errors %}
+								  <div class="invalid-feedback">
+									{% for error in form.non_field_errors %}
+									  {{ error }}
+									{% endfor %}
+								  </div>
+								{% endif %}
+								
+									{% for field in form.visible_fields %}
+					<div class="col-sm-6">
+											<div class="mb-3">
+										  <div class="form-group">
+											{{ field.label_tag }}
+											
+											{% if form.is_bound %}
+											
+											  {% if field.errors %}
+											  
+												{% render_field field class="form-control is-invalid" %}
+												
+												{% for error in field.errors %}
+												  <div class="invalid-feedback">
+													{{ error }}
+												  </div>
+												  
+												{% endfor %}
+											  {% else %}
+											  
+												{% render_field field class="form-control is-valid" %}
+											  {% endif %}
+											  
+											{% else %}
+											
+											  {% render_field field class="form-control" %}
+											  
+											{% endif %}
+
+											{% if field.help_text %}
+											  <small class="form-text text-muted">{{ field.help_text }}</small>
+											{% endif %}
+										  </div>
+										  </div>
+                             </div>
+										{% endfor %}
+								
+									<div class="mb-3">
+									<button type="submit" class="btn btn-primary w-100">Sign in</button>
+								</div>
+								
+							</div>
+							</form>
+						</div>
+					</div>
+					<!-- /autocomplete -->
+					<!-- /inner container -->
+				
+
+{% endblock %}

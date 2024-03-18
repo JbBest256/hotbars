@@ -1,0 +1,271 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block profilecontent%}
+
+{% endblock%}
+<style></style>
+{% block content%}
+		
+				
+
+<!-- Card deck -->
+					<div class="mb-3 pt-2">
+						<h6 class="mb-0">
+							Stock
+						</h6>
+						<span class="text-muted d-block">All the past stock</span>
+					</div>
+						<div class="d-flex justify-content-end px-2">
+                            <a href="{% url 'newbarstock'  %}"" >
+								<button type="button" class="btn btn-secondary my-1 me-2">New Stock</button>
+                            </a>        
+                        </div>
+					<div class="row row-cols-sm-3 mb-sm-3">
+					
+					{%for item in items%}
+						<div class="col-sm">
+							<div class="card h-sm-100 mb-sm-0 border-start border-start-width-2 border-start-indigo border-end border-end-width-2 border-end-indigo rounded-0">
+								
+								<div class="card-body p-2">
+									<div class="d-flex pb-0 mb-0">
+									<a style = "cursor:pointer" onclick="Stock({{item.id}})" class="text-body d-inline-flex " >
+										<h5  class="px-2 text-primary ">
+										<i class="ph-eye"></i>
+										</h5>
+										<h5 class="card-title text-primary">Stock no. {{item.stock_no}}</h5>
+										
+									</a>
+									
+									<div class="d-inline-flex ms-auto">
+										
+										<a class="text-body mx-2" >
+											<i class="ph-pencil  text-info"></i>
+										</a>
+										<a class="text-body " >
+											<i class="ph-trash text-danger"></i>
+										</a>
+									</div>
+									</div>
+									<hr class="pt-0 mt-0">
+									<div class="row g-1">
+										<div class="col-6">
+											Date stocked:
+										</div>
+										<div class="col-6 text-info">
+											<b > {{item.date_created}}</b>
+											<hr class="m-1 p-0">
+										</div>
+									
+									</div>
+									
+									<div class="row g-1">
+										<div class="col-6">
+											Purchase Cost:
+										</div>
+										<div class="col-6">
+											<b class="text-indigo">{{item.total_purchase}} Ugsh</b>
+											<hr class="m-1 p-0">
+										</div>
+									
+									</div>
+									<div class="row g-1">
+										<div class="col-6">
+											Operation Cost:
+										</div>
+										<div class="col-6">
+											<b class="text-indigo">200,200,000 Ugsh</b>
+											<hr class="m-1 p-0">
+										</div>
+									
+									</div>
+									<div class="row g-1">
+										<div class="col-6">
+											Total Cost:
+										</div>
+										<div class="col-6">
+											<b class="text-indigo">200,200,000 Ugsh</b>
+											<hr class="m-1 p-0">
+										</div>
+									
+									</div>
+									<div class="row g-1">
+										<div class="col-6">
+											Damage Cost:
+										</div>
+										<div class="col-6">
+											<b class="text-danger">{{item.total_damage}} Ugsh</b>
+											<hr class="m-1 p-0">
+										</div>
+									
+									</div>
+								
+								</div>
+
+								<div class="card-footer d-flex justify-content-between">
+									<span class="text-muted">Stocked 3 mins ago</span>
+									
+								</div>
+							</div>
+						</div>
+					{%endfor%}
+					
+						
+						
+						
+					
+					</div>
+					<!-- /card deck -->
+
+					
+
+
+
+
+					
+
+
+					
+
+
+
+				
+
+
+	</div>
+	<!-- /page content -->
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+let Stock = (id) => {
+
+	assoc = id
+	
+	fetch("{% url 'ajaxstock' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(assoc)
+		}
+	).then(e =>e.json()).then(messages =>{
+	
+		for(message of messages){
+			if (message.message == 'success'){
+				
+				window.location.href = "{% url 'barstock' %}";
+			}else{
+			alert(message.message)
+			
+			}
+		}
+	});
+}
+
+</script>
+{% endblock javascript %} 
+

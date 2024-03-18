@@ -1,0 +1,721 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+<section class="section-content padding-y-sm bg-default ">
+<div class="navbar border-bottom pb-1">
+					<div class="container-fluid">
+						<ul class="nav align-items-center">
+							
+							<li class="nav-item ms-1">
+								<a href="{% url 'posonlineorders'  %}" class="navbar-nav-link navbar-nav-link-icon rounded ">
+									<div class="d-flex align-items-center mx-md-1">
+										<i class="ph-git-merge"></i>
+										<span class=" ms-2">Online Order</span>
+										<span class="badge bg-secondary rounded-pill ms-1 ms-md-2">5</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item ms-1">
+								<a href="{% url 'pos'  %}" class="navbar-nav-link navbar-nav-link-icon rounded active">
+									<div class="d-flex align-items-center mx-md-1">
+										<i class="ph-git-pull-request"></i>
+										<span class=" ms-2">Point of Sale</span>
+									</div>
+								</a>
+							</li>
+						</ul>
+
+						
+					</div>
+				</div>
+<div class="row">
+		<div class="col-md-7 card padding-y-sm card ">
+		
+			<ul class="nav bg radius nav-pills nav-fill mb-3 bg" role="tablist">
+				<li class="nav-item bg-light rounded p-0" style="margin:2px;">
+					<a style="padding:5px;" class= {% if active == 0%}"nav-link active "{%else%}"nav-link "{%endif%} href="#" onclick="SetCategoy(0) ">
+					 All</a>
+				</li>
+				{% for category in categories %}
+				<li class="nav-item bg-light rounded p-0" style="margin:2px;">
+					<a style="padding:5px;" class= {% if active == category.pk%}"nav-link active "{%else%}"nav-link "{%endif%}  href="#" onclick="SetCategoy({{category.pk}}) ">
+					  {{category.name}}</a>
+				</li>
+				{% endfor%}
+			</ul>
+			<span   id="items">
+
+				<div style="max-height:600px; overflow-y:auto;" class="row">
+					
+					{%if products%}
+					{%for product in products%}
+						<div class="col-xl-3 col-sm-3 col-6 mb-3">
+							<div class="card m-0">
+								<div class="card-body m-0 p-1">
+									<div class="card-img-actions">
+										
+											<img src="{{product.item.cover_image.url}}" class="card-img" width="90" alt="">
+										
+									</div>
+								</div>
+
+								<div class="card-body text-center m-0 p-0">
+									<div class="mb-0">
+										<h6 class="mb-0">
+											<a href="#" class="text-body">{{product.item.product_name}}</a>
+										</h6>
+
+										<a href="#" class="text-muted">{{product.item.brand}}</a>
+									</div>
+
+									<h6 class="m-0">Ugx: {{product.item.new_price}}</h6>
+
+									
+									<button id="addtocart-btn{{product.item.pk}}" onclick="AddtoCart({{product.item.pk}})" type="button" class="btn btn-primary btn-sm mb-1">
+										<i class="ph-shopping-cart me-2"></i>
+										Place Order
+									</button>
+								</div>
+							</div>
+						</div>
+					{%endfor%}
+					{%else%}
+					<div class="card card border-start border-start-width-2 border-start-indigo border-end border-end-width-2 border-end-indigo rounded-0">
+								<div class="card-header text-center ">
+									<h6 class="mb-0 text-warning">No Products Found</h6>
+									
+								</div>
+
+								<div class="collapse show">
+									<div class="card-body">
+										Please add products to be displayed at the bar counter
+									</div>
+								</div>
+							</div>
+					{%endif%}
+						
+					
+					
+				</div> <!-- row.// -->
+
+			</span>
+		</div>
+		<div class="col-md-5">
+		<div style="max-height:380px; overflow-y:auto;" class="card p-2 ">
+			
+				<table  class=" table-hover">
+				<thead class="text-muted">
+				<tr>
+				  <th >Item</th>
+				  <th >Qty</th>
+				  <th >Price</th>
+				  <th >Remove</th>
+				</tr>
+				</thead>
+				<tbody id="cart-table">
+				{% for cart in carts %}
+				<tr>
+				 <td>
+                <figure class="media">
+                    <div class="img-wrap"><img src="{{cart.product_image.url}}"  style="width:50px;" class="img-thumbnail img-xs"></div>
+                    <figcaption class="media-body">
+                        <b class="title text-truncate">{{cart.product_name}}</b>
+                    </figcaption>
+                </figure>
+            </td>
+            <td class="text-center">
+                <div class="m-btn-group m-btn-group--pill btn-group mr-1" role="group" aria-label="...">
+                    
+                    <input type="number" id="quantity{{cart.pk}}" onchange="Changeproductqty({{cart.pk}}) " class="form-control border-primary" style="width:75px;" value="{{cart.quantity}}" >
+                   
+                </div>
+            </td>
+            <td>
+                <div class="price-wrap">
+                    <var class="price">Ugx: {{cart.total_price}}</var>
+                </div>
+            </td>
+            <td class="text-right">
+                <a onclick="RemovefromCart({{cart.pk}})" class="btn btn-outline-danger btn-round p-1"><i class="ph-trash"></i></a>
+            </td>
+			</tr>
+				{% endfor %}
+				</tbody>
+				</table>
+			
+		</div> <!-- card.// -->
+		
+			<div class="box">
+				
+  <div class="row">
+    <div class="col-4 col-sm-1">
+      <h6>Total</h6>
+    </div>
+    <div class="col-8 col-sm-5">
+      <h5>Ugx: <span class="text-success"id="totalp" >0</span><h5>
+    </div>
+    <div class="col-4 col-sm-1">
+     <h6>Paid</h6>
+    </div>
+    <div class="col-8 col-sm-5">
+      <input type="number" id="paid" onchange="calculateBalance()" class="form-control border-primary p-1"  value="0" >
+                   
+    </div>
+	 <div class="col-6 mt-2 mb-2" >
+    <h6>Balance: Ugx <span id="balance"  class="text-warning">0</span></h6>
+  </div>
+	
+	<div class="col-6 mt-1 mb-2">
+     
+   
+		                        	
+			                            <select id="payment_mode" class="form-select p-1">
+			                                <option value="opt1">Payement Mode</option>
+			                                <option value="opt2">Cash</option>
+			                                <option value="opt3">Mobile Money</option>
+			                                <option value="opt4">Visa Card</option>
+			                                <option value="opt5">Bank Transfer</option>
+			                                <option value="opt6">Cheque</option>
+			                                
+			                            </select>
+		                           
+           
+    </div>
+	<div class="col-12 mb-3">
+     
+									
+									
+										<div class="input-group">
+											<span class="input-group-text bg-primary-100 border-primary text-warning">
+												Code(Address)
+											</span>
+											<input id="code" type="text" class="form-control border-start-0 ms-0" placeholder="Insert Address Code">
+										</div>
+									
+		       
+    </div>
+	<div class="col-12 mb-3">
+     
+										<textarea id="order_note" rows="2"  class="form-control border-primary p-1" placeholder="Input Order note e.g cold"></textarea>
+									
+								<!-- /textarea -->
+									
+		       
+    </div>
+	<div class="col-lg-9 mb-3">
+										<select class="form-select" id="waiter" required="">
+											<option selected="" disabled="" value="">Please select waiter</option>
+											{%for waiter in waiters%}
+											<option value="{{waiter.employees.pk}}">{{waiter.employees.full_name}}</option>
+											
+											{%endfor%}
+										</select>
+									</div>
+	
+  </div>
+ 
+
+
+				
+				
+			<div class="row">
+				<div class="col-6">
+					<a href="#" class="btn  btn-default btn-warning btn-sm btn-block"><i class="fa fa-times-circle "></i> Cancel </a>
+				</div>
+				<div class="col-6">
+					<a onclick="PosCheckout()" class="btn  btn-primary btn-sm btn-block"><i class="fa fa-shopping-bag"></i> Charge </a>
+				</div>
+			</div>
+			</div> <!-- box.// -->
+				
+				
+		</div>
+	</div>
+		<div class="card mt-3">
+		
+			<div class="card-body">
+				<div id="sumDisplay" style="font-weight: bold;"></div>
+				<table id ="softwareTable" class="table datatable-responsive">
+							<thead>
+								<tr>
+									<th>Status</th>
+									<th>Order No.</th>
+									<th>Address</th>
+									<th>Responsible</th>
+									<th>Details</th>
+									
+									<th>Change</th>
+									<th>Cost</th>
+									<th>Paid</th>
+									
+									
+								</tr>
+							</thead>
+							<tbody>
+							
+							{%for ordered_cart in ordered_carts %}
+								<tr>
+								<td 
+									{% if ordered_cart.order_status == 'Placed' %}
+									class="bg-warning rounded text-start" 
+									{% elif ordered_cart.order_status == 'Packed' %}
+									class="bg-primary rounded text-start"
+									{% elif ordered_cart.order_status == 'In Transit' %}
+									class="bg-info rounded text-start"
+									
+									{% elif ordered_cart.order_status == 'Delivered' %}
+									class="bg-success rounded text-start"
+									{%endif%}
+									>{{ordered_cart.order_status}}</td>
+									
+									<td>{{ordered_cart.order_no}}</td>
+									<td>{{ordered_cart.code_address}}</td>
+									<td>{{ordered_cart.delivered_by.full_name}}</td>
+									<td>{{ordered_cart.details}}</td>
+									
+									<td>{{ordered_cart.balance}}</td>
+									<td>{{ordered_cart.total}}</td>
+									<td>{{ordered_cart.paid}}</td>
+									
+									
+								</tr>
+							{%endfor%}
+							
+							</tbody>
+						</table>
+			</div>
+		</div>				
+
+</section>
+
+
+
+
+
+
+
+
+<script>
+$(document).ready(function() {
+        var table = $('#softwareTable').DataTable();
+        var initialized = false;
+
+        $('#softwareTable thead th').each(function(index) {
+            if ([0, 1, 2].includes(index)) {
+                var title = $(this).text();
+                $(this).html('<select class="form-control"><option value="">' + title + '</option></select>');
+            }
+        });
+
+        table.columns().every(function() {
+            var column = this;
+            if ([0, 1, 2].includes(column.index())) {
+                var select = $('select', column.header());
+                column.data().unique().sort().each(function(value) {
+                    select.append('<option value="' + value + '">' + value + '</option>');
+                });
+
+                select.on('change', function() {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    updateSum();
+                });
+            }
+        });
+
+        function updateSum() {
+            var sum = table.column(6, { page: 'current' }).data().reduce(function(a, b) {
+                return parseFloat(a) + parseFloat(b);
+            }, 0);
+            $('#sumDisplay').text('Total Sales:Ugx: ' + sum);
+        }
+
+        if (!$.fn.DataTable.isDataTable('#softwareTable')) {
+            table.destroy();
+            initialized = false;
+        } else {
+            if (!initialized) {
+                updateSum();
+                initialized = true;
+            }
+        }
+    });
+// Event listener for adding an item to the cart
+function SetCategoy(id){
+	
+	message = id
+	fetch("{% url 'setcategory' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(message)
+		}
+	).then(e =>e.json()).then(messages =>{
+		for(message of messages){
+			if(message.message=='success'){
+				window.location.reload();
+			}
+		}
+	});
+}
+
+
+
+
+ function AddtoCart(id) {
+	
+    let addtocart_btnid = "addtocart-btn" + id;
+    let addtocart_btn = document.getElementById(addtocart_btnid);
+    let cart_count = document.getElementById("cart-count");
+    message = id;
+
+    fetch("{% url 'addtoposcart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	if (data.products){
+		totalPrice = 0
+		for (const product of data.products) {
+			
+			totalPrice += parseFloat(product.fields.total_price);
+        }
+		const totalp = document.getElementById('totalp');
+		totalp.innerHTML = totalPrice;
+        for (const product of data.products) {
+		
+            addItemToCart(product);
+        }
+		}
+	if(data.products){
+        // Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+        for (const product of data.products) {
+		console.log(product)
+            addItemToCart(product);
+        }
+		}
+		
+    });
+}
+
+//CHECKOUT FUNCTION
+ function PosCheckout() {
+ 
+    var selectedPaymentMode = document.getElementById('payment_mode').value;
+    var addressCode = document.getElementById('code').value;
+	var paid = document.getElementById('paid').value;
+	var total_price = document.getElementById("totalp");
+	var balance = document.getElementById("balance");
+	var order_note = document.getElementById("order_note").value;
+	var waiter = document.getElementById("waiter").value;
+    // Get the text content of the element
+    var balancestring = balance.textContent;
+	var total_pricestring = total_price.textContent;
+    // Convert the text content to a number if needed
+    var newBalance = parseInt(balancestring);
+	var newtotal_price = parseInt(total_pricestring);
+    var message = {
+                payment_mode: selectedPaymentMode,
+                address_code: addressCode,
+				paid: paid,
+                balance: newBalance,
+				total_price: newtotal_price,
+				order_note: order_note,
+				waiter: waiter
+            };
+
+    fetch("{% url 'poscheckout' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	
+	if(data){
+			
+				
+				window.location.reload();
+			
+		}
+		
+    });
+}
+
+
+
+//REMOVE AN ITEM FROM cart
+ function RemovefromCart(id) {
+    
+    message = id;
+
+    fetch("{% url 'removefromposcart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	if(data.products){
+		
+        // Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+		if (data.products){
+		totalPrice = 0
+		for (const product of data.products) {
+			
+			totalPrice += parseFloat(product.fields.total_price);
+        }
+		const totalp = document.getElementById('totalp');
+		totalp.innerHTML = totalPrice;
+        for (const product of data.products) {
+		
+            addItemToCart(product);
+        }
+		}
+		}
+		
+    });
+}
+
+    // CHANGE PRODUCT QUANTITY
+	function Changeproductqty(id) {
+	
+    let changeqtyid = "quantity" + id;
+	
+    let qty = document.getElementById(changeqtyid).value;
+    
+
+    // Create an object with id and qty
+    const cartItem = { id: id, qty: qty };
+
+    fetch("{% url 'changeqtyposcart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        // Send the object as JSON in the request body
+        body: JSON.stringify(cartItem)
+    }).then(response => response.json()).then(data => {
+        if (data.products) {
+		// Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+            totalPrice = 0;
+            for (const product of data.products) {
+                totalPrice += parseFloat(product.fields.total_price);
+            }
+            const totalp = document.getElementById('totalp');
+            totalp.innerHTML = totalPrice;
+            for (const product of data.products) {
+                addItemToCart(product);
+            }
+        }
+    });
+}
+  //CALCULATE BALANCE IF PAID.
+  function calculateBalance() {
+  let totalPrice = document.getElementById('totalp').innerHTML;
+  let paid = document.getElementById('paid').value;
+  let balancevalue = document.getElementById('balance')
+    // Ensure paid and totalPrice are valid numbers
+    if (isNaN(paid) || isNaN(totalPrice)) {
+        alert("Please enter valid numeric values for paid and total price.");
+        return;
+    }
+
+    // Calculate the balance
+    const balance = paid - totalPrice;
+	balancevalue.innerHTML = balance
+}
+
+
+    
+    // Function to add a new item to the cart
+    function addItemToCart(product) {
+		
+        const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        
+        // Create a new table row
+        const newRow = document.createElement('tr');
+
+        // Create the structure for the cart item
+        newRow.innerHTML = `
+            <td>
+                <figure class="media">
+                    <div class="img-wrap"><img src="${product.fields.product_image}" style="width:50px;" class="img-thumbnail img-xs"></div>
+                    <figcaption class="media-body">
+                        <b class="title text-truncate">${product.fields.product_name}</b>
+                    </figcaption>
+                </figure>
+            </td>
+            <td class="text-center">
+                <div class="m-btn-group m-btn-group--pill btn-group mr-1" role="group" aria-label="...">
+                    
+                    <input type="number" id="quantity${product.pk}" onchange="Changeproductqty(${product.pk}) " class="form-control border-primary" style="width:75px;" value="${product.fields.quantity}" >
+                   
+                </div>
+            </td>
+            <td>
+                <div class="price-wrap">
+                    <var class="price">Ugx: ${product.fields.total_price}</var>
+                </div>
+            </td>
+            <td class="text-right">
+                <a onclick="RemovefromCart(${product.pk})" class="btn btn-outline-danger btn-round p-1"><i class="ph-trash"></i></a>
+            </td>
+        `;
+
+        // Append the new row to the cart table
+        cartTable.appendChild(newRow);
+		let paid = document.getElementById('paid');
+		paid.value = 0
+		let balancevalue = document.getElementById('balance');
+		balancevalue.innerHTML = 0
+    }
+
+    
+</script>
+
+	{% endblock %}
+	
+	
+	<!-- HTML structure for the cart table -->
+<table id="cart-table">
+    <!-- Existing cart items go here -->
+</table>
+

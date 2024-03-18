@@ -1,0 +1,466 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+<section class="section-content padding-y-sm bg-default ">
+
+		<div class="card mt-3">
+		<div id="sumDisplay" style="font-weight: bold;"></div>
+			<div class="card-body">
+				<table id ="softwareTable" class="table datatable-responsive">
+							<thead>
+								<tr>
+									<th>Status</th>
+									<th>Order No.</th>
+									<th>Address</th>
+									<th>Responsible</th>
+									<th>Details</th>
+									
+									<th>Change</th>
+									<th>Cost</th>
+									<th>Paid</th>
+									
+									
+								</tr>
+							</thead>
+							<tbody>
+							
+							{%for ordered_cart in ordered_carts %}
+								<tr>
+									<td 
+									{% if ordered_cart.order_status == 'Placed' %}
+									class="bg-warning rounded text-start" 
+									{% elif ordered_cart.order_status == 'Packed' %}
+									class="bg-primary rounded text-start"
+									{% elif ordered_cart.order_status == 'In Transit' %}
+									class="bg-info rounded text-start"
+									
+									{% elif ordered_cart.order_status == 'Delivered' %}
+									class="bg-success rounded text-start"
+									{%endif%}
+									>{{ordered_cart.order_status}}</td>
+									<td>{{ordered_cart.order_no}}</td>
+									<td>{{ordered_cart.code_address}}</td>
+									<td>{{ordered_cart.delivered_by.full_name}}</td>
+									<td>{{ordered_cart.details}}</td>
+									
+									<td>{{ordered_cart.balance}}</td>
+									<td>{{ordered_cart.total}}</td>
+									<td>{{ordered_cart.paid}}</td>
+									
+									
+								</tr>
+							{%endfor%}
+							
+							</tbody>
+						</table>
+			</div>
+		</div>				
+
+</section>
+
+
+
+
+
+
+
+
+<script>
+$(document).ready(function() {
+        var table = $('#softwareTable').DataTable();
+        var initialized = false;
+
+        $('#softwareTable thead th').each(function(index) {
+            if ([0, 1, 2].includes(index)) {
+                var title = $(this).text();
+                $(this).html('<select class="form-control"><option value="">' + title + '</option></select>');
+            }
+        });
+
+        table.columns().every(function() {
+            var column = this;
+            if ([0, 1, 2].includes(column.index())) {
+                var select = $('select', column.header());
+                column.data().unique().sort().each(function(value) {
+                    select.append('<option value="' + value + '">' + value + '</option>');
+                });
+
+                select.on('change', function() {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    updateSum();
+                });
+            }
+        });
+
+        function updateSum() {
+            var sum = table.column(6, { page: 'current' }).data().reduce(function(a, b) {
+                return parseFloat(a) + parseFloat(b);
+            }, 0);
+            $('#sumDisplay').text('Total Sales:Ugx: ' + sum);
+        }
+
+        if (!$.fn.DataTable.isDataTable('#softwareTable')) {
+            table.destroy();
+            initialized = false;
+        } else {
+            if (!initialized) {
+                updateSum();
+                initialized = true;
+            }
+        }
+    });
+// Event listener for adding an item to the cart
+ function AddtoCart(id) {
+	
+    let addtocart_btnid = "addtocart-btn" + id;
+    let addtocart_btn = document.getElementById(addtocart_btnid);
+    let cart_count = document.getElementById("cart-count");
+    message = id;
+
+    fetch("{% url 'addtoposcart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	if (data.products){
+		totalPrice = 0
+		for (const product of data.products) {
+			
+			totalPrice += parseFloat(product.fields.total_price);
+        }
+		const totalp = document.getElementById('totalp');
+		totalp.innerHTML = totalPrice;
+        for (const product of data.products) {
+		
+            addItemToCart(product);
+        }
+		}
+	if(data.products){
+        // Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+        for (const product of data.products) {
+		console.log(product)
+            addItemToCart(product);
+        }
+		}
+		
+    });
+}
+
+//CHECKOUT FUNCTION
+ function PosCheckout() {
+ 
+    var selectedPaymentMode = document.getElementById('payment_mode').value;
+    var addressCode = document.getElementById('code').value;
+	var paid = document.getElementById('paid').value;
+	var total_price = document.getElementById("totalp");
+	var balance = document.getElementById("balance");
+	var order_note = document.getElementById("order_note");
+	var waiter = document.getElementById("waiter").value;
+    // Get the text content of the element
+    var balancestring = balance.textContent;
+	var total_pricestring = total_price.textContent;
+    // Convert the text content to a number if needed
+    var newBalance = parseInt(balancestring);
+	var newtotal_price = parseInt(total_pricestring);
+    var message = {
+                payment_mode: selectedPaymentMode,
+                address_code: addressCode,
+				paid: paid,
+                balance: newBalance,
+				total_price: newtotal_price,
+				order_note: order_note,
+				waiter: waiter
+            };
+
+    fetch("{% url 'poscheckout' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	
+	if(data){
+			
+				
+				window.location.reload();
+			
+		}
+		
+    });
+}
+
+
+
+//REMOVE AN ITEM FROM cart
+ function RemovefromCart(id) {
+    
+    message = id;
+
+    fetch("{% url 'removefromposcart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	if(data.products){
+		
+        // Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+		if (data.products){
+		totalPrice = 0
+		for (const product of data.products) {
+			
+			totalPrice += parseFloat(product.fields.total_price);
+        }
+		const totalp = document.getElementById('totalp');
+		totalp.innerHTML = totalPrice;
+        for (const product of data.products) {
+		
+            addItemToCart(product);
+        }
+		}
+		}
+		
+    });
+}
+
+    // CHANGE PRODUCT QUANTITY
+	function Changeproductqty(id) {
+	
+    let changeqtyid = "quantity" + id;
+	
+    let qty = document.getElementById(changeqtyid).value;
+    
+
+    // Create an object with id and qty
+    const cartItem = { id: id, qty: qty };
+
+    fetch("{% url 'changeqtyposcart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        // Send the object as JSON in the request body
+        body: JSON.stringify(cartItem)
+    }).then(response => response.json()).then(data => {
+        if (data.products) {
+		// Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+            totalPrice = 0;
+            for (const product of data.products) {
+                totalPrice += parseFloat(product.fields.total_price);
+            }
+            const totalp = document.getElementById('totalp');
+            totalp.innerHTML = totalPrice;
+            for (const product of data.products) {
+                addItemToCart(product);
+            }
+        }
+    });
+}
+  //CALCULATE BALANCE IF PAID.
+  function calculateBalance() {
+  let amount = document.getElementById('totalp').value;
+  let paid = document.getElementById('paid').value;
+  let balancevalue = document.getElementById('balance')
+    // Ensure paid and totalPrice are valid numbers
+    if (isNaN(paid) || isNaN(totalPrice)) {
+        alert("Please enter valid numeric values for paid and total price.");
+        return;
+    }
+
+    // Calculate the balance
+    const balance = paid - totalPrice;
+	balancevalue.innerHTML = balance
+}
+
+
+    
+    // Function to add a new item to the cart
+    function addItemToCart(product) {
+		
+        const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        
+        // Create a new table row
+        const newRow = document.createElement('tr');
+
+        // Create the structure for the cart item
+        newRow.innerHTML = `
+            <td>
+                <figure class="media">
+                    <div class="img-wrap"><img src="${product.fields.product_image}" style="width:50px;" class="img-thumbnail img-xs"></div>
+                    <figcaption class="media-body">
+                        <b class="title text-truncate">${product.fields.product_name}</b>
+                    </figcaption>
+                </figure>
+            </td>
+            <td class="text-center">
+                <div class="m-btn-group m-btn-group--pill btn-group mr-1" role="group" aria-label="...">
+                    
+                    <input type="number" id="quantity${product.pk}" onchange="Changeproductqty(${product.pk}) " class="form-control border-primary" style="width:75px;" value="${product.fields.quantity}" >
+                   
+                </div>
+            </td>
+            <td>
+                <div class="price-wrap">
+                    <var class="price">Ugx: ${product.fields.total_price}</var>
+                </div>
+            </td>
+            <td class="text-right">
+                <a onclick="RemovefromCart(${product.pk})" class="btn btn-outline-danger btn-round p-1"><i class="ph-trash"></i></a>
+            </td>
+        `;
+
+        // Append the new row to the cart table
+        cartTable.appendChild(newRow);
+		let paid = document.getElementById('paid');
+		paid.value = 0
+		let balancevalue = document.getElementById('balance');
+		balancevalue.innerHTML = 0
+    }
+
+    
+</script>
+
+	{% endblock %}
+	
+	
+	<!-- HTML structure for the cart table -->
+<table id="cart-table">
+    <!-- Existing cart items go here -->
+</table>
+

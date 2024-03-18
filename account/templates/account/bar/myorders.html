@@ -1,0 +1,291 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+<section class="section-content padding-y-sm bg-default ">
+
+		<div class="card mt-3">
+						<div class="row mb-3">
+									<label class="col-form-label col-lg-3">Ordered From Counter?</label>
+									<div class="col-lg-9">
+										<div class="input-group">
+											<button onclick="TrackOrderStatus()" class="btn btn-outline-success" type="button">Track</button>
+											<input  id="order_no" type="text" class="form-control" placeholder="Enter Order Number From the Counter">
+										</div>
+									</div>
+						</div>
+		<div id="sumDisplay" style="font-weight: bold;"></div>
+			<div class="card-body">
+				<table id ="softwareTable" class="table datatable-responsive">
+							<thead>
+								<tr>
+									<th>Status</th>
+									<th>Order No.</th>
+									<th>Address</th>
+									
+									<th>Details</th>
+									
+									<th>Change</th>
+									<th>Cost</th>
+									<th>Paid</th>
+									
+									
+								</tr>
+							</thead>
+							<tbody>
+							
+							{%for ordered_cart in ordered_carts %}
+								<tr>
+									<td 
+									{% if ordered_cart.order_status == 'Placed' %}
+									class="bg-warning rounded text-start" 
+									{% elif ordered_cart.order_status == 'Packed' %}
+									class="bg-primary rounded text-start"
+									{% elif ordered_cart.order_status == 'In Transit' %}
+									class="bg-info rounded text-start"
+									
+									{% elif ordered_cart.order_status == 'Delivered' %}
+									class="bg-success rounded text-start"
+									{% elif ordered_cart.order_status == 'Pending' %}
+									class="bg-light rounded text-start"
+									{%endif%}
+									>{{ordered_cart.order_status}}</td>
+									<td>{{ordered_cart.order_no}}</td>
+									<td onclick="ViewOrderDetails({{ordered_cart.pk}})"class="text-primary cursor-pointer">{{ordered_cart.code_address}}</td>
+									
+									<td>{{ordered_cart.details}}</td>
+									
+									<td>{{ordered_cart.balance}}</td>
+									<td>{{ordered_cart.total}}</td>
+									<td>{{ordered_cart.paid}}</td>
+									
+									
+								</tr>
+							{%endfor%}
+							
+							</tbody>
+						</table>
+			</div>
+		</div>				
+
+</section>
+
+
+
+
+
+
+
+
+<script>
+$(document).ready(function() {
+        var table = $('#softwareTable').DataTable();
+        var initialized = false;
+
+        $('#softwareTable thead th').each(function(index) {
+            if ([0, 1, 2].includes(index)) {
+                var title = $(this).text();
+                $(this).html('<select class="form-control"><option value="">' + title + '</option></select>');
+            }
+        });
+
+        table.columns().every(function() {
+            var column = this;
+            if ([0, 1, 2].includes(column.index())) {
+                var select = $('select', column.header());
+                column.data().unique().sort().each(function(value) {
+                    select.append('<option value="' + value + '">' + value + '</option>');
+                });
+
+                select.on('change', function() {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    updateSum();
+                });
+            }
+        });
+
+        function updateSum() {
+            var sum = table.column(6, { page: 'current' }).data().reduce(function(a, b) {
+                return parseFloat(a) + parseFloat(b);
+            }, 0);
+            $('#sumDisplay').text('Total Sales:Ugx: ' + sum);
+        }
+
+        if (!$.fn.DataTable.isDataTable('#softwareTable')) {
+            table.destroy();
+            initialized = false;
+        } else {
+            if (!initialized) {
+                updateSum();
+                initialized = true;
+            }
+        }
+    });
+
+function ViewOrderDetails(id){
+	
+	message = id
+	fetch("{% url 'myordersdetailsajax' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(message)
+		}
+	).then(e =>e.json()).then(messages =>{
+		for(message of messages){
+			if(message.message=='success'){
+				window.location.href = "{% url 'myordersdetails' %}";
+			}
+		}
+	});
+}
+
+//TRACK COUNTER ORDER
+function TrackOrderStatus(){
+	
+	var message = document.getElementById("order_no").value;
+	
+	fetch("{% url 'trackorder' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(message)
+		}
+	).then(e =>e.json()).then(messages =>{
+		for(message of messages){
+			if(message.message=='success'){
+				window.location.reload();
+			}
+		}
+	});
+}
+ 
+ 
+
+    
+</script>
+
+	{% endblock %}
+	
+

@@ -1,0 +1,330 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+
+{% block content%}
+<div class="row row-cols-sm-4 mb-sm-4">
+			
+
+
+	
+						<div class="col-sm">
+							<div class="card h-sm-100 mb-sm-0">
+								
+								<div class="card-body">
+									<h5 class="card-title">Products</h5>
+									<p class="card-text">This title reflects the diverse offerings of accommodation, camping, adventure activities like birding and forest adventures,
+									alongside unique experiences like agri tours, harvest and cook events, and bonfire gatherings</p>
+								</div>
+
+								<div class="card-footer d-flex justify-content-center">
+								{%if settings.products == True%}
+									 <div>
+									
+													<button onclick="Switch_Products({{settings.id}})" type="button" class="btn btn-flat-success btn-sm rounded-pill">
+														<i class="ph-at ph-sm me-2"></i>
+														On
+													</button>
+										
+									</div>
+									
+											   {%else%}
+											   	   <div>
+                                    <button onclick="Switch_Products({{settings.id}})" type="button" class="btn btn-flat-danger btn-sm rounded-pill">
+                                        <i class="ph-at ph-sm me-2"></i>
+                                        Off 
+                                    </button>
+                                </div>
+											   
+											   {%endif%}
+									 
+								</div>
+							</div>
+						</div>
+
+					<div class="col-sm">
+							<div class="card h-sm-100 mb-sm-0">
+								
+								<div class="card-body">
+									<h5 class="card-title">Restaurant</h5>
+									<p class="card-text">This title reflects the diverse offerings of accommodation, camping, adventure activities like birding and forest adventures,
+									alongside unique experiences like agri tours, harvest and cook events, and bonfire gatherings</p>
+								</div>
+
+								<div class="card-footer d-flex justify-content-center">
+								{%if settings.restaurant == True%}
+									 <div>
+									
+													<button onclick="Switch_Restaurant({{settings.id}})" type="button" class="btn btn-flat-success btn-sm rounded-pill">
+														<i class="ph-at ph-sm me-2"></i>
+														On
+													</button>
+										
+									</div>
+									
+											   {%else%}
+											   	   <div>
+                                    <button onclick="Switch_Restaurant({{settings.id}})" type="button" class="btn btn-flat-danger btn-sm rounded-pill">
+                                        <i class="ph-at ph-sm me-2"></i>
+                                        Off
+                                    </button>
+                                </div>
+											   
+											   {%endif%}
+									 
+								</div>
+							</div>
+						</div>
+						
+					
+
+
+		<div class="col-sm">
+							<div class="card h-sm-100 mb-sm-0">
+								
+								<div class="card-body">
+									<h5 class="card-title">Rooms</h5>
+									<p class="card-text">This title reflects the diverse offerings of accommodation, camping, adventure activities like birding and forest adventures,
+									alongside unique experiences like agri tours, harvest and cook events, and bonfire gatherings</p>
+								</div>
+
+								<div class="card-footer d-flex justify-content-center">
+								{%if settings.rooms == True%}
+									 <div>
+									
+													<button onclick="Switch_Rooms({{settings.id}})" type="button" class="btn btn-flat-success btn-sm rounded-pill">
+														<i class="ph-at ph-sm me-2"></i>
+														On
+													</button>
+										
+									</div>
+									
+											   {%else%}
+											   	   <div>
+                                    <button onclick="Switch_Rooms({{settings.id}})" type="button" class="btn btn-flat-danger btn-sm rounded-pill">
+                                        <i class="ph-at ph-sm me-2"></i>
+                                        Off
+                                    </button>
+                                </div>
+											   
+											   {%endif%}
+									 
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-sm">
+							<div class="card h-sm-100 mb-sm-0">
+								
+								<div class="card-body">
+									<h5 class="card-title">Business Customer Locations</h5>
+									{%for location in locations%}
+									<p class="card-text">{{location.name}} ({{location.capacity}})</p>
+									{%endfor%}
+								</div>
+
+								<div class="card-footer d-flex justify-content-center">
+								
+									 <button onclick="" type="button" class="btn btn-flat-info btn-sm rounded-pill">
+									 <a href="{% url 'businessloactions'  %}">
+														<i class="ph-at ph-sm me-2"></i>
+														Edit Locations
+										</a>			</button>
+								</div>
+							</div>
+						</div>
+
+</div>
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+
+let Switch_Products = (id) => {
+
+	assoc = id
+	
+	fetch("{% url 'activateproducts' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(assoc)
+		}
+	).then(e =>e.json()).then(messages =>{
+	
+		for(message of messages){
+			if (message.message == 'success'){
+				
+				window.location.reload();
+			}else{
+			alert(message.message)
+			
+			}
+		}
+	});
+}
+
+
+let Switch_Restaurant = (id) => {
+
+	assoc = id
+	
+	fetch("{% url 'activaterestaurant' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(assoc)
+		}
+	).then(e =>e.json()).then(messages =>{
+	
+		for(message of messages){
+			if (message.message == 'success'){
+				
+				window.location.reload();
+			}else{
+			alert(message.message)
+			
+			}
+		}
+	});
+}
+
+let Switch_Rooms = (id) => {
+
+	assoc = id
+	
+	fetch("{% url 'activaterooms' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(assoc)
+		}
+	).then(e =>e.json()).then(messages =>{
+	
+		for(message of messages){
+			if (message.message == 'success'){
+				
+				window.location.reload();
+			}else{
+			alert(message.message)
+			
+			}
+		}
+	});
+}
+
+</script>
+{% endblock javascript %} 

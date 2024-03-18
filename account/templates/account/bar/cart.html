@@ -1,0 +1,495 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+<section class="section-content padding-y-sm bg-default ">
+
+<div class="row">
+		<div class="col-md-7 padding-y-sm ">
+	
+			<div   class="card p-2">
+
+					{%if carts%}
+				<b class="text-danger" id="oostock"></b>
+				<table  class=" table-hover">
+				<thead class="text-muted">
+				<tr>
+				  <th >Item</th>
+				  <th >Quantity</th>
+				  <th >Price Ugx: </th>
+				  <th >Remove</th>
+				</tr>
+				</thead>
+				<tbody id="cart-table">
+				{%for cart in carts%}
+					<tr class="p-0">
+						<td>
+                <figure class="media">
+                    <div class="img-wrap"><img src="{{cart.product_image.url}}" style="width:50px;" class="img-thumbnail img-xs"></div>
+                    <figcaption class="media-body">
+                        <b class="title text-truncate">{{cart.product_name}}</b>
+                    </figcaption>
+                </figure>
+            </td>
+            <td class="text-left">
+                <div class="m-btn-group m-btn-group--pill btn-group mr-1" role="group" aria-label="...">
+                    
+                    <input type="number" id="quantity{{cart.pk}}" style="width:70px;" onchange="Changeproductqty({{cart.pk}}) " class="p-1 form-control border-primary"  value="{{cart.quantity}}" >
+                   
+                </div>
+            </td>
+            <td>
+                <div class="price-wrap">
+                    <var class="price">{{cart.total_price}}</var>
+                </div>
+            </td>
+            <td class="text-right">
+                <a onclick="RemovefromCart({{cart.pk}})" class="btn btn-outline-danger btn-round p-1"><i class="ph-trash"></i></a>
+            </td>
+					</tr>
+				{%endfor%}
+				</tbody>
+				</table>
+			<div class="col-sm-6 text-info">
+                                                        <a href="{% url 'counter' %}" class="btn text-muted m-2 d-sm-inline-block btn-link fw-semibold">
+                                                            <i class="ph-arrow-left"></i> Continue Ordering </a>
+                                                    </div> 
+		
+							
+						
+					
+					{%else%}
+					<div class="card card border-start border-start-width-2 border-start-indigo border-end border-end-width-2 border-end-indigo rounded-0">
+						<div class="card-header text-center ">
+									<h6 class="mb-0 text-warning">No Items Found</h6>
+									
+						</div>
+						<div class="col-sm-6 text-info text-right">
+                                                        <a href="{% url 'myorders' %}" class="btn text-muted m-2 d-sm-inline-block btn-link fw-semibold ">
+                                                            <i class="ph-arrow-right"></i> Check Order Status </a>
+                                                    </div> 
+						<div class="col-sm-6 text-info">
+                                <a href="{% url 'counter' %}" class="btn text-muted m-2 d-sm-inline-block btn-link fw-semibold">
+                                                            <i class="ph-arrow-left"></i> Continue Ordering </a>
+                        </div> 
+					</div>
+					{%endif%}
+						
+					
+					
+				
+
+			</div>
+		</div>
+		<div class="col-md-5">
+		
+		
+			<div class="box">
+				
+  <div class="row">
+    <div class="col-4 col-sm-1">
+      <h6>Total</h6>
+    </div>
+    <div class="col-8 col-sm-5">
+      <h5>Ugx: <span class="text-success"id="totalp" >{{total_price}}</span><h5>
+    </div>
+    <div class="col-4 col-sm-1">
+     <h6>Cash</h6>
+    </div>
+    <div class="col-8 col-sm-5">
+      <input type="number" id="paid" onchange="calculateBalance()" class="form-control border-primary"  value="0" >
+                   
+    </div>
+  </div>
+  <div class="mt-2" >
+    <h6>Balance: Ugx <span id="balance"  class="text-warning">0</span></h6>
+  </div>
+<div class="col-6 mt-1 mb-2">
+     
+   
+		                        	
+			                            <select id="payment_mode" class="form-select p-1">
+			                                <option value="opt1">Payement Mode</option>
+			                                <option value="opt2">Cash</option>
+			                                <option value="opt3">Mobile Money</option>
+			                                <option value="opt4">Visa Card</option>
+			                                <option value="opt5">Bank Transfer</option>
+			                                <option value="opt6">Cheque</option>
+			                                
+			                            </select>
+		                           
+           
+    </div>
+<div class="col-12 mb-3">
+     
+									
+									
+										<div class="input-group">
+											<span class="input-group-text bg-primary-100 border-primary text-warning">
+												Code(Address)
+											</span>
+											<select id="location" class="form-select p-1">
+											  <option value="opt1">Choose location</option>
+											{% for location in locations %}
+			                                <option value="{{location.pk}}">{{location.name}}</option>
+			                                {% endfor %}
+			                                
+			                            </select>
+										</div>
+									
+		       
+    </div>
+	<div class="col-12 mb-3">
+     
+										<textarea id="order_note" rows="2"  class="form-control border-primary p-1" placeholder="Input Order note e.g cold"></textarea>
+									
+								<!-- /textarea -->
+									
+		       
+    </div>
+				
+				
+			<div class="row">
+				<div class="col-6">
+					<a href="#" class="btn  btn-default btn-warning btn-sm btn-block"><i class="fa fa-times-circle "></i> Cancel </a>
+				</div>
+				<div class="col-6 float-right">
+					<a href="#" onclick="CartCheckout()" class="btn  btn-primary btn-sm btn-block"><i class="fa fa-shopping-bag"></i>Order Now </a>
+					
+				</div>
+				
+			</div>
+			</div> <!-- box.// -->
+				
+				
+		</div>
+	</div>
+
+
+</section>
+
+
+
+
+</div>
+
+</section>
+
+<script>
+
+// Event listener for adding an item to the cart
+//CHECKOUT FUNCTION
+ function CartCheckout() {
+ 
+    var selectedPaymentMode = document.getElementById('payment_mode').value;
+    var addressCode = document.getElementById('location').value;
+	var paid = document.getElementById('paid').value;
+	var total_price = document.getElementById("totalp");
+	var balance = document.getElementById("balance");
+	var order_note = document.getElementById("order_note").value;
+	
+    // Get the text content of the element
+    var balancestring = balance.textContent;
+	var total_pricestring = total_price.textContent;
+    // Convert the text content to a number if needed
+    var newBalance = parseInt(balancestring);
+	var newtotal_price = parseInt(total_pricestring);
+    var message = {
+                payment_mode: selectedPaymentMode,
+                address_code: addressCode,
+				paid: paid,
+                balance: newBalance,
+				total_price: newtotal_price,
+				order_note: order_note,
+				
+            };
+
+    fetch("{% url 'cartcheckout' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(e =>e.json()).then(messages =>{
+		for(message of messages){
+		
+			if(message.message=='success'){
+				window.location.reload();
+				
+			}else{
+			const Outstock = document.getElementById('oostock');
+			Outstock.innerHTML = message.message
+			}
+		}
+	});
+}
+
+ 
+
+
+//REMOVE AN ITEM FROM cart
+ function RemovefromCart(id) {
+    
+    message = id;
+
+    fetch("{% url 'removefromcountercart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        body: JSON.stringify(message)
+    }).then(response => response.json()).then(data => {
+	console.log(data)
+	if(data.products){
+		
+        // Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+		if (data.products){
+		totalPrice = 0
+		for (const product of data.products) {
+			
+			totalPrice += parseFloat(product.fields.total_price);
+        }
+		const totalp = document.getElementById('totalp');
+		totalp.innerHTML = totalPrice;
+        for (const product of data.products) {
+		
+            addItemToCart(product);
+        }
+		}
+		}else{alert('totalp')}
+		
+    });
+}
+
+    // CHANGE PRODUCT QUANTITY
+	function Changeproductqty(id) {
+	
+    let changeqtyid = "quantity" + id;
+	
+    let qty = document.getElementById(changeqtyid).value;
+    
+
+    // Create an object with id and qty
+    const cartItem = { id: id, qty: qty };
+
+    fetch("{% url 'changeqtycountercart' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{csrf_token}}',
+        },
+        // Send the object as JSON in the request body
+        body: JSON.stringify(cartItem)
+    }).then(response => response.json()).then(data => {
+        if (data.products) {
+		// Assuming 'data' contains the products array you sent from the server
+		const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        cartTable.innerHTML = '';
+            totalPrice = 0;
+            for (const product of data.products) {
+                totalPrice += parseFloat(product.fields.total_price);
+				
+            }
+            const totalp = document.getElementById('totalp');
+            totalp.innerHTML = totalPrice;
+            for (const product of data.products) {
+                addItemToCart(product);
+            }
+        }
+    });
+}
+  //CALCULATE BALANCE IF PAID.
+   function calculateBalance() {
+  let totalPrice = document.getElementById('totalp').innerHTML;
+  let paid = document.getElementById('paid').value;
+  let balancevalue = document.getElementById('balance')
+    // Ensure paid and totalPrice are valid numbers
+	
+    if (isNaN(paid) || isNaN(totalPrice)) {
+        alert("Please enter valid numeric values for paid and total price.");
+        return;
+    }
+
+    // Calculate the balance
+    const balance = paid - totalPrice;
+	balancevalue.innerHTML = balance
+}
+
+
+    
+    // Function to add a new item to the cart
+    function addItemToCart(product) {
+		
+        const cartTable = document.getElementById('cart-table');
+		// Clear the existing content of the cart table
+        
+        // Create a new table row
+        const newRow = document.createElement('tr');
+
+        // Create the structure for the cart item
+        newRow.innerHTML = `
+            <td>
+                <figure class="media">
+                    <div class="img-wrap"><img src="${product.fields.product_image}" style="width:50px;" class="img-thumbnail img-xs"></div>
+                    <figcaption class="media-body">
+                        <b class="title text-truncate">${product.fields.product_name}</b>
+                    </figcaption>
+                </figure>
+            </td>
+            <td class="text-center">
+                <div class="m-btn-group m-btn-group--pill btn-group mr-1" role="group" aria-label="...">
+                    
+                    <input type="number" id="quantity${product.pk}" onchange="Changeproductqty(${product.pk}) " class="form-control border-primary" style="width:75px;" value="${product.fields.quantity}" >
+                   
+                </div>
+            </td>
+            <td>
+                <div class="price-wrap">
+                    <var class="price">Ugx: ${product.fields.total_price}</var>
+                </div>
+            </td>
+            <td class="text-right">
+                <a onclick="RemovefromCart(${product.pk})" class="btn btn-outline-danger btn-round p-1"><i class="ph-trash"></i></a>
+            </td>
+        `;
+
+        // Append the new row to the cart table
+        cartTable.appendChild(newRow);
+		let paid = document.getElementById('paid');
+		paid.value = 0
+		let balancevalue = document.getElementById('balance');
+		balancevalue.innerHTML = 0
+    }
+
+    
+</script>
+
+	{% endblock %}
+	
+	
+	<!-- HTML structure for the cart table -->
+<table id="cart-table">
+    <!-- Existing cart items go here -->
+</table>
+

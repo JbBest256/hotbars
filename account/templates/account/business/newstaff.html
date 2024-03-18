@@ -1,0 +1,589 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+
+{% block profilecontent%}
+<!-- Cover area -->
+				<div class="profile-cover">
+					<div class="profile-cover-img" style="background-image: url(../../../assets/images/demo/cover2.jpg)"></div>
+					<div class="d-flex align-items-center text-center text-lg-start flex-column flex-lg-row position-absolute start-0 end-0 bottom-0 mx-3 mb-3">
+						<div class="me-lg-3 mb-2 mb-lg-0">
+							<a href="#">
+								<img src="../../../assets/images/demo/users/face11.jpg" class="img-thumbnail rounded-circle shadow" width="100" height="100" alt="">
+							</a>
+						</div>
+
+						<div class="profile-cover-text text-white">
+				    		<h1 class="mb-0">Hanna Dorman</h1>
+				    		<span class="d-block">UX/UI designer</span>
+						</div>
+
+						<div class="ms-lg-auto mt-2 mt-lg-0">
+							<div class="d-inline-flex">
+								<a href="#" class="btn btn-light border-transparent shadow">
+									<i class="ph-image me-2"></i>
+									Cover image
+								</a>
+								<a href="#" class="btn btn-light border-transparent shadow ms-3">
+									<i class="ph-chart-line me-2"></i>
+									Statistics
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /cover area -->
+				
+
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="#activity" class="navbar-nav-link navbar-nav-link-icon active rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class="d-none d-lg-inline-block ms-2">
+											My Timetable
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#settings" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="d-none d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							<li class="nav-item d-lg-none ms-auto">
+								<a href="#profile_nav" class="navbar-nav-link navbar-nav-link-icon collapsed rounded" data-bs-toggle="collapse">
+									<i class="ph-caret-down collapsible-indicator"></i>
+								</a>
+							</li>
+						</ul>
+
+						<div class="navbar-collapse collapse" id="profile_nav">
+							<ul class="navbar-nav ms-lg-auto mt-2 mt-lg-0">
+								<li class="nav-item ms-lg-1">
+									<a href="#" class="navbar-nav-link rounded">
+										<i class="ph-note me-2"></i>
+										Notes
+									</a>
+								</li>
+								<li class="nav-item ms-lg-1">
+									<a href="#" class="navbar-nav-link rounded">
+										<i class="ph-users me-2"></i>
+										Friends
+									</a>
+								</li>
+								<li class="nav-item ms-lg-1">
+									<a href="#" class="navbar-nav-link rounded">
+										<i class="ph-image me-2"></i>
+										Photos
+									</a>
+								</li>
+								<li class="nav-item dropdown ms-lg-1">
+									<a href="#" class="navbar-nav-link rounded dropdown-toggle" data-bs-toggle="dropdown">
+										<i class="ph-gear"></i>
+										<span class="d-lg-none ms-2">More</span>
+									</a>
+
+									<div class="dropdown-menu dropdown-menu-end">
+										<a href="#" class="dropdown-item">
+											<i class="ph-image me-2"></i>
+											Update cover
+										</a>
+										<a href="#" class="dropdown-item">
+											<i class="ph-clipboard-text me-2"></i>
+											Update info
+										</a>
+										<a href="#" class="dropdown-item">
+											<i class="ph-rows me-2"></i>
+											Manage sections
+										</a>
+										<div class="dropdown-divider"></div>
+										<a href="#" class="dropdown-item">
+											<i class="ph-activity me-2"></i>
+											My Calendar
+										</a>
+										<a href="#" class="dropdown-item">
+											<i class="ph-gear me-2"></i>
+											Profile settings
+										</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /profile navigation -->
+
+
+{% endblock%}
+
+{% block content%}
+	<!-- Inner container -->
+					<div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
+
+						<!-- Left content -->
+						<div class="tab-content flex-fill order-2 order-lg-1">
+							<div class="tab-pane fade active show" id="activity">
+
+								
+
+
+								
+
+								
+
+						    </div>
+
+						    
+
+						    <div class="tab-pane fade active show" id="settings">
+
+								
+
+								<!-- Account settings -->
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">Add Business Staff</h5>
+									</div>
+
+									<div class="card-body">
+										<form class="needs-validation" action=""  method = "POST" enctype ="multipart/form-data" novalidate>
+											{% csrf_token %}
+											
+						{% for hidden_field in form.hidden_fields %}
+							{{ hidden_field }}
+						{% endfor %}
+											<div class="row">
+											{% if form.non_field_errors %}
+								  <div class="invalid-feedback">
+									{% for error in form.non_field_errors %}
+									  {{ error }}
+									{% endfor %}
+								  </div>
+								{% endif %}
+								
+											{% for field in form.visible_fields %}
+
+	<div class="col-lg-6">
+													<div class="mb-3">
+  <div class="form-group">
+    {{ field.label_tag }}
+	
+    {% if form.is_bound %}
+	
+      {% if field.errors %}
+	  
+        {% render_field field class="form-control is-invalid" %}
+		
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+		  
+        {% endfor %}
+      {% else %}
+	  
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+	  
+    {% else %}
+	
+      {% render_field field class="form-control" %}
+	  
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+  </div>
+  </div>
+</div>
+{% endfor %}
+		<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_1" value="1" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can do everything</label>
+													</div>
+											
+											</div>
+			</div>
+			
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_2" value="2" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can add other staff</label>
+													</div>
+											
+											</div>
+			</div>
+			
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_3" value="3" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can sell over the counter</label>
+													</div>
+											
+											</div>
+			</div>
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_4" value="4" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can access business settings</label>
+													</div>
+											
+											</div>
+			</div>
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_5" value="5" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can deliver goods ordered</label>
+													</div>
+											
+											</div>
+			</div>
+			
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_6" value="6" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can process online orders</label>
+													</div>
+											
+											</div>
+			</div>
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_7" value="7" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can add new stock</label>
+													</div>
+											
+											</div>
+			</div>
+			<div class="col-lg-6">
+					<div class="mb-3">
+											<div class="form-check form-switch mb-2">
+														<input type="checkbox" name ="role_8" value="8" class="form-check-input form-check-input-success" id="sc_r_success" >
+														<label class="form-check-label" for="sc_r_success">Can add product or service categories and items</label>
+													</div>
+											
+											</div>
+			</div>
+		</div>
+		
+		
+		</div>
+													
+					                        <div class="text-end mb-3">
+					                        	<button type="submit" class="btn btn-primary">Save changes</button>
+					                        </div>
+				                        </form>
+									</div>
+								</div>
+								<!-- /account settings -->
+
+					    	</div>
+						</div>
+						<!-- /left content -->
+
+
+						<!-- Right sidebar component -->
+						<div class="sidebar sidebar-component sidebar-expand-lg bg-transparent shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
+
+							<!-- Sidebar content -->
+							<div class="sidebar-content">
+
+								<!-- Navigation -->
+								<div class="card">
+									<div class="sidebar-section-header border-bottom">
+										<span class="fw-semibold">Navigation</span>
+									</div>
+
+									<ul class="nav nav-sidebar">
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="ph-user me-2"></i>
+												 My profile
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="ph-coins me-2"></i>
+												Balance
+												<span class="text-muted fs-sm fw ms-auto">$1,430</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="ph-share-network me-2"></i>
+												Connections
+												<span class="badge bg-danger rounded-pill ms-auto">29</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="ph-users-three me-2"></i>
+												Friends
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="ph-calendar me-2"></i>
+												Events
+												<span class="badge bg-teal rounded-pill ms-auto">48</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												<i class="ph-gear me-2"></i>
+												Account settings
+											</a>
+										</li>
+									</ul>
+								</div>
+								<!-- /navigation -->
+
+
+								<!-- Balance changes -->
+								<div class="card">
+									<div class="sidebar-section-header border-bottom">
+										<div class="fw-semibold">Balance changes</div>
+										<span class="ms-auto">
+											<i class="ph-arrow-down text-danger"></i> <span class="fw-semibold">- 29.4%</span>
+										</span>
+									</div>
+
+									<div class="sidebar-section-body">
+										<div class="chart-container">
+											<div class="chart has-fixed-height" id="balance_statistics"></div>
+										</div>
+									</div>
+								</div>
+								<!-- /balance changes -->
+
+
+								<!-- Latest connections -->
+								<div class="card">
+									<div class="sidebar-section-header d-flex border-bottom">
+										<span class="fw-semibold">Latest connections</span>
+										<div class="ms-auto">
+											<span class="badge bg-success rounded-pill">+32</span>
+				                		</div>
+									</div>
+
+									<div class="list-group list-group-borderless py-2">
+										<div class="list-group-item text-muted">Office staff</div>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face1.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">James Alexander</div>
+												<span class="text-muted">UI/UX expert</span>
+											</div>
+
+											<div class="bg-success rounded-pill p-1"></div>
+										</a>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face2.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">Jeremy Victorino</div>
+												<span class="text-muted">Senior designer</span>
+											</div>
+
+											<div class="bg-danger rounded-pill p-1"></div>
+										</a>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face6.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">Jordana Mills</div>
+												<span class="text-muted">Sales consultant</span>
+											</div>
+
+											<div class="bg-secondary rounded-pill p-1"></div>
+										</a>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face9.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">William Miles</div>
+												<span class="text-muted">SEO expert</span>
+											</div>
+
+											<div class="bg-success rounded-pill p-1"></div>
+										</a>
+
+										<div class="list-group-item text-muted">Partners</div>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face3.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">Margo Baker</div>
+												<span class="text-muted">Google</span>
+											</div>
+
+											<div class="bg-success rounded-pill p-1"></div>
+										</a>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face4.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">Beatrix Diaz</div>
+												<span class="text-muted">Facebook</span>
+											</div>
+
+											<div class="bg-warning rounded-pill p-1"></div>
+										</a>
+
+										<a href="#" class="list-group-item list-group-item-action hstack gap-3">
+											<img src="../../../assets/images/demo/users/face5.jpg" class="rounded-circle" width="40" height="40" alt="">
+
+											<div class="flex-fill">
+												<div class="fw-semibold">Richard Vango</div>
+												<span class="text-muted">Microsoft</span>
+											</div>
+
+											<div class="bg-secondary rounded-pill p-1"></div>
+										</a>
+									</div>
+								</div>
+								<!-- /latest connections -->
+
+							</div>
+							<!-- /sidebar content -->
+
+						</div>
+						<!-- /right sidebar component -->
+
+					</div>
+					<!-- /inner container -->
+				
+
+{% endblock %}

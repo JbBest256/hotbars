@@ -1,0 +1,338 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{%block navigation%}
+				<!-- Profile navigation -->
+				<div class="navbar navbar-expand-lg border-bottom py-2">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav flex-row flex-fill">
+							<li class="nav-item me-1">
+								<a href="{% url 'home'  %}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-activity"></i>
+										<span class="d-none d-lg-inline-block ms-2">Home</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								
+									<div class="d-flex align-items-center mx-lg-1">
+									<a href="{% url 'counter'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Counter
+										
+										</span>
+									</a>
+									{%if incart%}
+					<a href="{% url 'countercart'  %}" id="counter_cart" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%else%}
+					<a href="{% url 'countercart'  %}"  id="counter_cart" class="d-none navbar-nav-link navbar-nav-link-icon rounded-pill" >
+						<i class="ph-shopping-cart"></i>
+						<span id="cart-count" class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">0</span>
+					</a>
+							{%endif%}
+									</div>
+								
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Tables
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Menu
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Rooms
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Other Services
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							<li class="nav-item me-1">
+								<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" data-bs-toggle="tab">
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-calendar"></i>
+										<span class=" d-lg-inline-block ms-2">
+											Reviews
+											<span class="badge bg-success rounded-pill ms-auto ms-lg-2">32</span>
+										</span>
+									</div>
+								</a>
+							</li>
+							
+							
+							<li class="nav-item me-1">
+								<a href="{% url 'editprofile'  %}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+									<div class="d-flex align-items-center mx-lg-1">
+										<i class="ph-gear"></i>
+										<span class="    d-lg-inline-block ms-2">Edit Profile</span>
+									</div>
+								</a>
+							</li>
+
+							
+						</ul>
+
+						
+					</div>
+				</div>
+				<!-- /profile navigation -->
+			
+			{%endblock%}
+{% block content%}
+<section class="section-content padding-y-sm bg-default ">
+
+<div class="row">
+		<div class="col-md-7 padding-y-sm ">
+	
+			<div   class="card p-2">
+
+					{%if orders%}
+			
+				<table  class=" table-hover">
+				<thead class="text-muted">
+				<tr>
+				  <th >Item</th>
+				  <th >Quantity</th>
+				  <th >Price Ugx: </th>
+				  
+				</tr>
+				</thead>
+				<tbody id="cart-table">
+				{%for order in orders%}
+					<tr class="p-0">
+						<td>
+                <figure class="media">
+                    <div class="img-wrap"><img src="{{order.product_image.url}}" style="width:50px;" class="img-thumbnail img-xs"></div>
+                    <figcaption class="media-body">
+                        <b class="title text-truncate">{{order.product_name}}</b>
+                    </figcaption>
+                </figure>
+            </td>
+            <td class="text-left">
+                <div class="m-btn-group m-btn-group--pill btn-group mr-1" role="group" aria-label="...">
+                    
+                    <input disabled type="number" id="quantity{{cart.pk}}" style="width:70px;" onchange="Changeproductqty({{cart.pk}}) " class="p-1 form-control border-primary text-center"  value="{{order.quantity}}" >
+                   
+                </div>
+            </td>
+            <td>
+                <div class="price-wrap">
+                    <var class="price">{{order.total_price}}</var>
+                </div>
+            </td>
+           
+					</tr>
+				{%endfor%}
+				</tbody>
+				</table>
+			
+		
+							
+						
+					
+					{%else%}
+					<div class="card card border-start border-start-width-2 border-start-indigo border-end border-end-width-2 border-end-indigo rounded-0">
+								<div class="card-header text-center ">
+									<h6 class="mb-0 text-warning">No Items Found</h6>
+									
+								</div>
+
+								
+							</div>
+					{%endif%}
+						
+					
+					
+				
+
+			</div>
+		</div>
+		<div class="col-md-5">
+		
+		
+			<div class="box">
+				
+  <div class="row">
+    <div class="col-4 col-sm-1">
+      <h6>Total</h6>
+    </div>
+    <div class="col-8 col-sm-5">
+      <h5>Ugx: <span class="text-success"id="totalp" >{{total_price}},000,000</span><h5>
+    </div>
+    <div class="col-4 col-sm-1">
+     <h6>Cash</h6>
+    </div>
+    <div class="col-8 col-sm-5">
+      <input type="number" id="paid" onchange="calculateBalance()" class="form-control border-primary"  value="0" >
+                   
+    </div>
+  </div>
+  <div class="mt-2" >
+    <h6>Balance: Ugx <span id="balance"  class="text-warning">0</span></h6>
+  </div>
+
+<div class="col-12 mb-3">
+     
+									
+									
+										<div class="input-group">
+											<span class="input-group-text bg-primary-100 border-primary text-warning">
+												Code(Address)
+											</span>
+											<input id="code" type="text" class="form-control border-start-0 ms-0" placeholder="Insert Address Code">
+										</div>
+									
+		       
+    </div>
+	<div class="col-12 mb-3">
+     
+										<textarea id="order_note" rows="2"  class="form-control border-primary p-1" placeholder="Input Order note e.g cold"></textarea>
+									
+								<!-- /textarea -->
+									
+		       
+    </div>
+				
+				<div class="row">
+				<h5 class="text-info">Order Status</h5>
+				<div class=" bg-white p-2 rounded mb-2">
+    <div class="progress " style="height: 25px;">
+	
+		{% if ordersummary.order_status == 'Order Placed' %}
+	<div class="progress-bar bg-primary rounded" style="width: 25%;" role="progressbar">Order Placed</div>
+	{% endif %}
+		{% if ordersummary.order_status == 'Packed' %}
+  <div class="progress-bar bg-info " style="width: 50%;" role="progressbar">Order Packed</div>
+			{% endif %}
+  	{% if ordersummary.order_status == 'In Transit' %}
+  <div class="progress-bar bg-waring " style="width: 75%;" role="progressbar">Order In Transit</div>
+		{% endif %}
+			{% if ordersummary.order_status == 'Delivered' %}
+  <div class="progress-bar bg-success rounded" style="width: 100%;" role="progressbar">Order Delivered</div>
+	{% endif %}
+</div>
+</div>
+  </div>
+			<div class="row">
+			
+				<div class="col-6">
+					<a href="#" class="btn  btn-default btn-danger btn-sm btn-block"><i class="fa fa-times-circle "></i> Cancel Order</a>
+				</div>
+					
+				<div class="col-6 float-right">
+					<a href="#" 
+					{% if ordersummary.order_status == 'Placed' %}
+					onclick="OrderStatus({{1}})" 
+					{% elif ordersummary.order_status == 'Packed' %}
+					onclick="OrderStatus({{2}})" 
+					{% elif ordersummary.order_status == 'In Transit' %}
+					onclick="OrderStatus({{3}})" 
+					{% elif ordersummary.order_status == 'Pending' %}
+					onclick="OrderStatus({{0}})" 
+					{% endif %}
+					class="btn  btn-info btn-sm btn-block"><i class="fa fa-shopping-bag"></i>
+					{% if ordersummary.order_status == 'Placed' %}
+					Order Packed
+					
+					{% elif ordersummary.order_status == 'Packed' %}
+					Order in Transit
+					{% elif ordersummary.order_status == 'In Transit' %}
+					Order Delivered
+					{% elif ordersummary.order_status == 'Delivered' %}
+					Thank You So Much
+					{%endif%}
+					</a>
+					
+				</div>
+				
+			</div>
+			
+			</div> <!-- box.// -->
+				
+				
+		</div>
+	</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<script>
+
+// Event listener for adding an item to the cart
+ 
+
+
+//REMOVE AN ITEM FROM cart
+ function OrderStatus(id){
+	
+	message = id
+	fetch("{% url 'changeorderstatus' %}",
+		{
+		method:'POST',
+		credentials:'same-origin',
+		headers:{
+			'Content-Type':'application/json',
+			'X-CSRFToken':'{{csrf_token}}',
+		},
+		body:JSON.stringify(message)
+		}
+	).then(e =>e.json()).then(messages =>{
+		for(message of messages){
+			if(message.message=='success'){
+				window.location.reload();
+			}
+		}
+	});
+}
+</script>
+
+	{% endblock %}
+	
+	
+	<!-- HTML structure for the cart table -->
+<table id="cart-table">
+    <!-- Existing cart items go here -->
+</table>
+
