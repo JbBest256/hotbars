@@ -16,7 +16,7 @@ django-phonenumber-field==7.1.0
 django-phonenumbers==1.0.1
 django-select2==8.1.2
 django-widget-tweaks==1.5.0
-gunicorn==21.2.0
+
 hyperlink==21.0.0
 idna==3.6
 incremental==22.10.0
